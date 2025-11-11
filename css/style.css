@@ -1,0 +1,56 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap');
+
+:root {
+  --couleur-fond: #0a0f1f;
+  --couleur-cyan: #00e5ff;
+  --couleur-orange: #ff9100;
+  --couleur-blanc: #e0e0e0;
+  --couleur-gris: #222;
+  --couleur-gris-clair: #444;
+
+  --neon-cyan: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 40px #00bcd4;
+  --neon-orange: 0 0 10px #ff9100, 0 0 20px #ff9100, 0 0 40px #ff6d00;
+  --neon-blanc: 0 0 10px #ffffff, 0 0 20px #e0e0e0, 0 0 30px #aaaaaa;
+
+  --bordure-cyan: 1px solid #00e5ff;
+  --bordure-orange: 1px solid #ff9100;
+  --bordure-grise: 1px solid #333;
+
+  --font-principale: 'Orbitron', sans-serif;
+  --font-seconaire: 'Rajdhani', sans-serif;
+
+  --taille-titre: 2.2rem;
+  --taille-sous-titre: 1.4rem;
+  --taille-texte: 1rem;
+
+  --vitesse-transition: 0.3s ease;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--couleur-fond);
+  color: var(--couleur-blanc);
+  font-family: var(--font-seconaire);
+  font-size: var(--taille-texte);
+}
+
+#fond-etoiles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0a0f1f 50%, #000000 100%);
+}
+
+.etoile {
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+}
