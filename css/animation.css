@@ -1,0 +1,21 @@
+
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes brillance {
+  from {
+    text-shadow: 0 0 10px var(--couleur-cyan), 0 0 20px var(--couleur-cyan);
+  }
+  to {
+    text-shadow: 0 0 30px var(--couleur-cyan), 0 0 60px var(--couleur-cyan);
+  }
+}
