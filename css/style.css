@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap');
 
 :root {
@@ -37,6 +36,21 @@ body {
   font-size: var(--taille-texte);
 }
 
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* centre verticalement */
+  align-items: center;
+  /* centre horizontalement */
+  height: 100%;
+  width: 100%;
+  gap: 2rem;
+  /* espace entre le titre et le scoreboard */
+  position: relative;
+  z-index: 1;
+}
+
 #fond-etoiles {
   position: fixed;
   top: 0;
@@ -54,14 +68,12 @@ body {
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
 }
-/* Styles pour le titre du jeu */
+
+/* titre**************** */
 
 
 .titre-jeu {
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   text-align: center;
   z-index: 2;
   color: var(--couleur-blanc);
@@ -70,6 +82,7 @@ body {
   letter-spacing: 3px;
   animation: apparition 2s ease-out;
 }
+
 
 .titre-jeu h1 {
   font-size: 3.5rem;
@@ -92,11 +105,155 @@ body {
 }
 
 
+/* le scoreboard */
 
 
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4.5625rem;
+  /* espace autour du séparateur */
+  width: 48rem;
+  height: 20.84rem;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.40);
+  border: 0.727px solid rgba(0, 184, 219, 0.30);
+  border-radius: 1rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(0, 255, 255, 0.10),
+    inset 0 0 20px rgba(0, 255, 255, 0.05);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Chaque joueur */
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Cercle lumineux flou */
+.player-circle {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255, 165, 0, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0.5;
+  filter: blur(24px);
+  border: 1.455px solid rgba(255, 137, 4, 0.5);
+}
+
+/* Nom du joueur */
+.player h2 {
+  margin-bottom: 1rem;
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Cercles imbriqués Joueur 1 (orange) */
+.player-circle-outer {
+  border-radius: 1525200rem;
+  border: 1.455px solid rgba(255, 165, 0, 0.30);
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.15) 0%, rgba(255, 100, 0, 0.15) 100%);
+  box-shadow: 0 0 40px 0 rgba(255, 165, 0, 0.40), 0 0 30px 0 rgba(255, 165, 0, 0.10) inset;
+  width: 11.028rem;
+  height: 11.028rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-circle-middle {
+  border-radius: 1525200rem;
+  border: 0.727px solid rgba(255, 137, 4, 0.30);
+  width: 9.51rem;
+  height: 9.51rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-circle-inner {
+  border-radius: 1525200rem;
+  border: 1.455px solid rgba(255, 137, 4, 0.50);
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+/* Score */
+.player-circle-inner .score {
+  font-size: 3rem;
+  color: #ff9100;
+  text-shadow: 0 0 10px #ff9100, 0 0 20px #ff6d00;
+}
 
 
+/* Joueur 2 (bleu) */
+.player-circle-outer.blue {
+  border: 1.455px solid rgba(0, 255, 255, 0.3);
+  background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(0, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+}
 
+.player-circle-middle.blue {
+  border: 0.727px solid rgba(0, 255, 255, 0.3);
+}
+
+.player-circle-inner.blue {
+  border: 1.455px solid rgba(0, 255, 255, 0.5);
+}
+
+
+/* Scoreboard container */
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4.5625rem;
+}
+
+/* Séparateur */
+.score-separator {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-separator .line {
+  position: absolute;
+  border-radius: 1rem;
+}
+
+/* Ligne verticale */
+.score-separator .line.vertical {
+  width: 0.0625rem;
+  height: 8rem;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 211, 242, 0.50) 50%, rgba(0, 0, 0, 0.00) 100%);
+}
+
+/* Ligne horizontale */
+.score-separator .line.horizontal {
+  width: 8rem;
+  height: 0.0625rem;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(255, 137, 4, 0.50) 50%, rgba(0, 0, 0, 0.00) 100%);
+}
 
 /*media queries ----------------*/
 
@@ -106,6 +263,7 @@ body {
   .titre-jeu h1 {
     font-size: 2.8rem;
   }
+
   .titre-jeu p {
     font-size: 1rem;
   }
@@ -113,10 +271,11 @@ body {
 
 /* petits écrans -mobiles*/
 @media (max-width: 768px) {
-  
+
   .titre-jeu h1 {
     font-size: 2rem;
   }
+
   .titre-jeu p {
     font-size: 0.9rem;
   }
@@ -126,8 +285,86 @@ body {
   .titre-jeu h1 {
     font-size: 1.6rem;
   }
+
   .titre-jeu p {
     font-size: 0.8rem;
   }
 }
 
+
+@media (max-width: 1024px) {
+  .scoreboard {
+    width: 40rem;
+    height: 18rem;
+    gap: 3rem;
+  }
+
+  .player-circle {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .player p {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scoreboard {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .player-circle {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .player p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-circle {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .player p {
+    font-size: 1.2rem;
+  }
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .scoreboard {
+    flex-direction: column;
+    gap: 2rem;
+    height: auto;
+  }
+
+  .score-separator {
+    width: 8rem;
+    /* ligne horizontale */
+    height: 0.0625rem;
+    background: linear-gradient(90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(255, 137, 4, 0.5) 50%,
+        rgba(0, 0, 0, 0) 100%);
+  }
+
+  .score-separator::after {
+    top: 50%;
+    left: 50%;
+    width: 0.8rem;
+    height: 0.8rem;
+    transform: translate(-50%, -50%);
+  }
+}
