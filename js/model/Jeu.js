@@ -1,3 +1,4 @@
+
 class Jeu{
     constructor(canvas,grille,joueurs,tableauScores,manche,enCours){
         this.canvas=canvas;
@@ -20,3 +21,14 @@ class Jeu{
         
     }
 }
+
+
+export default Jeu;
+import Grille from Grille.js;
+import Canvas from Canvas.js;
+
+
+
+
+
+

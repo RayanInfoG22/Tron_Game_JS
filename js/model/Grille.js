@@ -5,13 +5,15 @@ class Grille{
         this.cellules=[]
 
     }
-    mouvementValide(x){
+    mouvementValide([x,y]){
 
     }
-    occuper(x,joueur){
+    occuper([x,y],joueur){
 
     }
+
     reinitialiser(){
+        
 
     }
 }
