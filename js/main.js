@@ -4,4 +4,4 @@ import Canvas from Canvas.js;
 
 
 let canvaElement=document.getElementsByClassName("canvas-container");
-canvaElement.
+canvaElement

@@ -9,6 +9,7 @@ class Canvas{
     }
     effacer(){
 
+
     }
 }
 
