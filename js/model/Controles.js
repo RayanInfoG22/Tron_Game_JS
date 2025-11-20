@@ -38,4 +38,34 @@ class Controles {
         this.directionActuelle = null; //direction actuelle
 
 
-    }}export default Controles;
+
+
+
+
+    }
+    
+        definirTouche(direction,key){
+            
+            //permet de definir ou redéfinir une touche pour une direction
+            this.touchesDirection[direction]=key;
+        }
+        obtenireTouche(direction){
+            //retourne la touche associée a une direction
+            return this.touchesDirection[direction];
+        }
+
+        prochaineDirection(){
+            //retourne la prochaine direction a prendre
+            if (this.directionSuivante.length>0){
+                
+            }
+            
+        }
+
+        
+
+
+
+
+
+}export default Controles;

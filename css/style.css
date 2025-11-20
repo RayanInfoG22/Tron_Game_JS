@@ -273,8 +273,7 @@ body {
 
 
 .canvas-container {
-  display: flex;
-  justify-content: center;
+  position: relative;
   margin: auto;
   width: 800px;
   height: 590px;
