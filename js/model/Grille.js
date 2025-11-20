@@ -51,5 +51,7 @@ class Grille{
     }
 }
 
+export default Grille;
+
 
 export default Grille;
