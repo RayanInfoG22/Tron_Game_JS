@@ -11,8 +11,7 @@ class Grille{
 
    //verifie si une cellule est libre
 
-  estlibre(x,y){
-
+    estlibre(x,y){
         //verifie si la cellule aux coordonnees (x,y) est libre
         if (x<0 || x>=this.colonnes || y<0 || y>=this.lignes){
             return false; //hors de la grille
