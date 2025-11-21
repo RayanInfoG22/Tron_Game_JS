@@ -10,113 +10,89 @@
  */
 
 $(function () {
-
-
+    // Charger les touches depuis localStorage sinon touches par defaut 
     let controls = JSON.parse(localStorage.getItem("tronControls")) || {
-        cyan: { left: "Q", right: "D", up: "Z", down: "S", Saut: "A" },
-        orange: { left: "O", right: "K", up: ";", down: "M", Saut: "P" }
+        joueur1: { gauche: 'Q', droite: 'D', haut: 'Z', bas: 'S', saut: 'A' },
+        joueur2: { gauche: 'O', droite: 'K', haut: ';', bas: 'M', saut: 'P' }
     };
 
+    // Mettre à jour l'affichage des touches sur la page
+    function majAffichage() {
+        $(".key-cyan").eq(0).text(controls.joueur1.gauche);
+        $(".key-cyan").eq(1).text(controls.joueur1.droite);
+        $(".key-cyan").eq(2).text(controls.joueur1.haut);
+        $(".key-cyan").eq(3).text(controls.joueur1.bas);
+        $(".key-cyan").eq(4).text(controls.joueur1.saut);
 
-    function genererHTML() {
-        return `
-        <div class="controls-panel">
-
-            <div class="controls-players">
-
-                <!-- Joueur Cyan -->
-                <div class="controls-player player-cyan">
-                    <h3>Cycle Cyan</h3>
-                    ${genererBlocTouche(controls.cyan, "cyan")}
-                </div>
-
-                <!-- Joueur Orange -->
-                <div class="controls-player player-orange">
-                    <h3>Cycle Orange</h3>
-                    ${genererBlocTouche(controls.orange, "orange")}
-                </div>
-
-            </div>
-
-            <div class="buttons-config">
-                <button id="btn-save-config">Sauvegarder</button>
-                <button id="btn-cancel-config">Annuler</button>
-            </div>
-
-        </div>`;
+        $(".key-orange").eq(0).text(controls.joueur2.gauche);
+        $(".key-orange").eq(1).text(controls.joueur2.droite);
+        $(".key-orange").eq(2).text(controls.joueur2.haut);
+        $(".key-orange").eq(3).text(controls.joueur2.bas);
+        $(".key-orange").eq(4).text(controls.joueur2.saut);
     }
 
+    majAffichage();
 
-    function genererBlocTouche(obj, couleur) {
-        return `
-            <div class="cmd"><p>Gauche</p><div class="key key-${couleur}" data-player="${couleur}" data-action="left">${obj.left}</div></div>
-            <div class="cmd"><p>Droite</p><div class="key key-${couleur}" data-player="${couleur}" data-action="right">${obj.right}</div></div>
-            <div class="cmd"><p>Haut</p><div class="key key-${couleur}" data-player="${couleur}" data-action="up">${obj.up}</div></div>
-            <div class="cmd"><p>Bas</p><div class="key key-${couleur}" data-player="${couleur}" data-action="down">${obj.down}</div></div>
-            <div class="cmd"><p>Saut</p><div class="key key-${couleur}" data-player="${couleur}" data-action="Saut">${obj.Saut}</div></div>
-        `;
-    }
-
-
-    $("#dialog-config").html(genererHTML());
-
+    // Initialiser la modale
     $("#dialog-config").dialog({
         autoOpen: false,
         modal: true,
-        width: 600,
-        resizable: false
+        width: 400
     });
 
+    // Bouton pour ouvrir la modale
+    $(".btn-config").click(function () {
+        // Remplir les champs de la modale avec les touches actuelles
+        $("#dialog-config .key-cyan").eq(0).text(controls.joueur1.gauche);
+        $("#dialog-config .key-cyan").eq(1).text(controls.joueur1.droite);
+        $("#dialog-config .key-cyan").eq(2).text(controls.joueur1.haut);
+        $("#dialog-config .key-cyan").eq(3).text(controls.joueur1.bas);
+        $("#dialog-config .key-cyan").eq(4).text(controls.joueur1.saut);
 
-    $(".btn-config").on("click", () => {
-        $("#dialog-config").html(genererHTML());
+        $("#dialog-config .key-orange").eq(0).text(controls.joueur2.gauche);
+        $("#dialog-config .key-orange").eq(1).text(controls.joueur2.droite);
+        $("#dialog-config .key-orange").eq(2).text(controls.joueur2.haut);
+        $("#dialog-config .key-orange").eq(3).text(controls.joueur2.bas);
+        $("#dialog-config .key-orange").eq(4).text(controls.joueur2.saut);
+
         $("#dialog-config").dialog("open");
     });
 
-
-    let toucheEnEdition = null;
-
-    $(document).on("click", ".key", function () {
-        $(".key").removeClass("editing");
-        $(this).addClass("editing");
-
-        toucheEnEdition = this;
+    // Modifier une touche en cliquant dessus
+    $("#dialog-config .cmd div").click(function () {
+        const div = $(this);
+        const oldValue = div.text();
+        const newKey = prompt("Appuyez sur la nouvelle touche", oldValue);
+        if (newKey) div.text(newKey.toUpperCase());
     });
 
-    $(document).on("keydown", function (e) {
-        if (!toucheEnEdition) return;
+    // Sauvegarder
+    $("#btn-save-controls").click(function () {
+        controls.joueur1.gauche = $("#dialog-config .key-cyan").eq(0).text();
+        controls.joueur1.droite = $("#dialog-config .key-cyan").eq(1).text();
+        controls.joueur1.haut = $("#dialog-config .key-cyan").eq(2).text();
+        controls.joueur1.bas = $("#dialog-config .key-cyan").eq(3).text();
+        controls.joueur1.saut = $("#dialog-config .key-cyan").eq(4).text();
 
-        const keyName = e.key.toUpperCase();
+        controls.joueur2.gauche = $("#dialog-config .key-orange").eq(0).text();
+        controls.joueur2.droite = $("#dialog-config .key-orange").eq(1).text();
+        controls.joueur2.haut = $("#dialog-config .key-orange").eq(2).text();
+        controls.joueur2.bas = $("#dialog-config .key-orange").eq(3).text();
+        controls.joueur2.saut = $("#dialog-config .key-orange").eq(4).text();
 
-        const player = toucheEnEdition.dataset.player;
-        const action = toucheEnEdition.dataset.action;
-
-    
-        controls[player][action] = keyName;
-
-    
-        toucheEnEdition.textContent = keyName;
-
-        $(toucheEnEdition).removeClass("editing");
-        toucheEnEdition = null;
-    });
-
-
-    $(document).on("click", "#btn-save-config", function () {
-
+        // Sauvegarder dans localStorage
         localStorage.setItem("tronControls", JSON.stringify(controls));
 
-        alert("✔ Commandes sauvegardées !");
+        // Mettre à jour l'affichage sur la page
+        majAffichage();
+
+        alert("Touches sauvegardées !");
         $("#dialog-config").dialog("close");
     });
 
-
-    $(document).on("click", "#btn-cancel-config", function () {
-
-        controls = JSON.parse(localStorage.getItem("tronControls")) || controls;
-
-        alert("✖ Modifications annulées.");
+    // Annuler
+    $("#btn-cancel-controls").click(function () {
         $("#dialog-config").dialog("close");
+        alert("Modification annulée");
     });
-
 });

@@ -68,10 +68,9 @@
         </div>
 
         <!-- Commandes de pilotage -->
-        <div id="dialog-config" title="Configuration des contrôles" style="display:none;"></div>
+        <div id="dialog-config" title="Configuration des contrôles" style="display:none;">
             <div class="controls-panel">
                 <h1>COMMANDE DE PILOTAGE</h1>
-
                 <div class="controls-players">
                     <!-- Joueur 1 -->
                     <div class="controls-player player-cyan">
@@ -123,13 +122,73 @@
                         </div>
                     </div>
                 </div>
+
+                <button id="btn-save-controls">Sauvegarder</button>
+                <button id="btn-cancel-controls">Annuler</button>
             </div>
-       
+        </div>
+
+        <div class="controls-panel">
+            <h1>COMMANDE DE PILOTAGE</h1>
+
+            <div class="controls-players">
+                <!-- Joueur 1 -->
+                <div class="controls-player player-cyan">
+                    <h3>Cycle Cyan</h3>
+                    <div class="cmd">
+                        <p>Gauche</p>
+                        <div class="key-cyan">Q</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Droite</p>
+                        <div class="key-cyan">D</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Haut</p>
+                        <div class="key-cyan">Z</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Bas</p>
+                        <div class="key-cyan">S</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Saut</p>
+                        <div class="key-cyan">A</div>
+                    </div>
+                </div>
+
+                <!-- Joueur 2 -->
+                <div class="controls-player player-orange">
+                    <h3>Cycle Orange</h3>
+                    <div class="cmd">
+                        <p>Gauche</p>
+                        <div class="key-orange">O</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Droite</p>
+                        <div class="key-orange">K</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Haut</p>
+                        <div class="key-orange">;</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Bas</p>
+                        <div class="key-orange">M</div>
+                    </div>
+                    <div class="cmd">
+                        <p>Saut</p>
+                        <div class="key-orange">P</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
 </body>
 <script src="js/view/Ui.js"></script>
-
+<script src="js/view/DialogConfig.js"></script>
 
 
 <script src="js/main.js"></script>

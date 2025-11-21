@@ -66,3 +66,5 @@ class Controles {
 }
 
 export default Controles;
+
+
