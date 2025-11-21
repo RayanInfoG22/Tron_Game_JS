@@ -83,12 +83,124 @@ class Joueur{
     }
     sauter(){
         let directionActuelle=this.directionActuelle;
-        let newPosition;
+        let newPosition_1;
+        let newPosition_2;
         switch (directionActuelle) {
             case 'droite':
-                
+                newPosition_1={x:this.positionActuelle.x+1,y:this.positionActuelle.y};
+                if(this.grille.estlibre(newPosition_1.x,newPosition_1.y)){
+                    newPosition_2={x:newPosition_1.x+1,y:newPosition_1.y};
+                    if(this.grille.estlibre(newPosition_2.x,newPosition_2.y)){
+                        this.positionActuelle.x=newPosition_1.x;
+                        this.positionActuelle.y=newPosition_1.y;
+
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+
+                        this.positionActuelle.x=newPosition_2.x;
+                        this.positionActuelle.y=newPosition_2.y;
+
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+                    }
+                    else{
+                        this.vivant=false;
+                    }
+                }
+                else{
+                    this.vivant=false;
+                }
+
+                break;
+
+
+                case 'gauche':
+                newPosition_1={x:this.positionActuelle.x-1,y:this.positionActuelle.y};
+                if(this.grille.estlibre(newPosition_1.x,newPosition_1.y)){
+                    newPosition_2={x:newPosition_1.x-1,y:newPosition_1.y};
+                    if(this.grille.estlibre(newPosition_2.x,newPosition_2.y)){
+                        this.positionActuelle.x=newPosition_1.x;
+                        this.positionActuelle.y=newPosition_1.y;
+
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+
+                        this.positionActuelle.x=newPosition_2.x;
+                        this.positionActuelle.y=newPosition_2.y;
+
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+                    }
+                    else{
+                        this.vivant=false;
+                    }
+                }
+                else{
+                    this.vivant=false;
+                }
+
                 break;
         
+                case 'haut':
+                newPosition_1={x:this.positionActuelle.x,y:this.positionActuelle.y-1};
+                if(this.grille.estlibre(newPosition_1.x,newPosition_1.y)){
+                    newPosition_2={x:newPosition_1.x,y:newPosition_1.y-1};
+                    if(this.grille.estlibre(newPosition_2.x,newPosition_2.y)){
+                        this.positionActuelle.x=newPosition_1.x;
+                        this.positionActuelle.y=newPosition_1.y;
+
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+
+                        this.positionActuelle.x=newPosition_2.x;
+                        this.positionActuelle.y=newPosition_2.y;
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+                    }
+                    else{
+                        this.vivant=false;
+                    }
+                }
+                else{
+                    this.vivant=false;
+                }
+
+                break;
+
+                case 'bas':
+                newPosition_1={x:this.positionActuelle.x,y:this.positionActuelle.y+1};
+                if(this.grille.estlibre(newPosition_1.x,newPosition_1.y)){
+                    newPosition_2={x:newPosition_1.x,y:newPosition_1.y+1};
+                    if(this.grille.estlibre(newPosition_2.x,newPosition_2.y)){
+                        this.positionActuelle.x=newPosition_1.x;
+                        this.positionActuelle.y=newPosition_1.y;
+
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+
+                        this.positionActuelle.x=newPosition_2.x;
+                        this.positionActuelle.y=newPosition_2.y;
+                        this.trace.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.historiqueTrajet.push({x:this.positionActuelle.x,y:this.positionActuelle.y});
+                        this.grille.occuper(this.positionActuelle.x,this.positionActuelle.y,this.nom);
+                    }
+                    else{
+                        this.vivant=false;
+                    }
+                }
+                else{
+                    this.vivant=false;
+                }
+
+                break;
+
             default:
                 break;
         }
