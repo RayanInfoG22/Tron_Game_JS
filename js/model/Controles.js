@@ -1,71 +1,68 @@
-
-
 /**
- * Clase qui gere les controles du joueur:
- * touches du clavier
- * file d'attente des directions pressees
- * empeche les directions invalides (ex: aller a gauche quand on va deja a droite)
- * empeche de faire demi-tour 
- * 
+ * Classe qui gère les contrôles du joueur :
+ *   touches du clavier
+ *  file d'attente des directions pressées
+ *  empêche les directions invalides ( demitour)
+ *  sauvegarde et lecture des touches personnalisées via localStorage
  */
 
 class Controles {
-    constructor(mapping = {}) {
-        //mapping: objet qui mappe les codes des touches aux directions
-        //on utilise mappping pour pouvoir personnaliser les controles
-        //et pour eviter les if else a chaque appui de touche
-        //chaque joueur a son propre mapping
+  
+    constructor(numeroJoueur) {
+        this.numeroJoueur = numeroJoueur;
+        // clé unique pour le localStorage selon le joueur
+        this.cleLocalStorage = `tronControlsJ${numeroJoueur}`;
 
+        // recupere les touches depuis localStorage sinon par défaut
+        this.touchesDirection = JSON.parse(localStorage.getItem(this.cleLocalStorage)) || this.touchesParDefaut();
 
-        /**
-         * Mapping des touches du clavier aux directions
-         * @type {Object}
-         * @property {string} gauche - Touche pour aller a gauche
-         * @property {string} droite - Touche pour aller a droite
-         * @property {string} haut - Touche pour aller en haut
-         * @property {string} bas - Touche pour aller en bas
-         * 
-         */
-
-        this.touchesDirection = {
-            'gauche': mapping.gauche || 'ArrowLeft',
-            'droite': mapping.droite || 'ArrowRight',
-            'haut': mapping.haut || 'ArrowUp',
-            'bas': mapping.bas || 'ArrowDown'
-        };
-
-        this.directionSuivante = [];   //direction suivante a prendre
-        this.directionActuelle = null; //direction actuelle
-
-
-
-
-
-
+     
+        this.directionSuivante = [];
+        this.directionActuelle = null;
     }
+
+ 
+    touchesParDefaut() {
+        if (this.numeroJoueur === 1) {
+            return { gauche: "Q", droite: "D", haut: "Z", bas: "S", Saut: "A" };
+        } else {
+            return { gauche: "O", droite: "K", haut: ";", bas: "M", Saut: "P" };
+        }
+    }
+
+  
+    definirTouche(direction, key) {
+        this.touchesDirection[direction] = key.toUpperCase();
+        this.sauvegarder();
+    }
+
+
+    obtenirTouche(direction) {
+        return this.touchesDirection[direction];
+    }
+
     
-        definirTouche(direction,key){
-            
-            //permet de definir ou redéfinir une touche pour une direction
-            this.touchesDirection[direction]=key;
-        }
-        obtenireTouche(direction){
-            //retourne la touche associée a une direction
-            return this.touchesDirection[direction];
-        }
+     // Sauvegarde la configuration actuelle dans le localStorage
+     
+    sauvegarder() {
+        localStorage.setItem(this.cleLocalStorage, JSON.stringify(this.touchesDirection));
+    }
 
-        prochaineDirection(){
-            //retourne la prochaine direction a prendre
-            if (this.directionSuivante.length>0){
-                
-            }
-            
-        }
+    ajouterDirection(dir) {
+        this.directionSuivante.push(dir);
+    }
 
-        
+  
+    prochaineDirection() {
+        return this.directionSuivante.shift() || null;
+    }
 
+    reinitialiser() {
+        this.touchesDirection = this.touchesParDefaut();
+        this.directionSuivante = [];
+        this.directionActuelle = null;
+        this.sauvegarder();
+    }
+}
 
-
-
-
-}export default Controles;
+export default Controles;

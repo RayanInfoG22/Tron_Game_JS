@@ -7,6 +7,14 @@
     <title>Tron</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/animation.css" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+
 </head>
 
 <body>
@@ -60,61 +68,63 @@
         </div>
 
         <!-- Commandes de pilotage -->
-        <div class="controls-panel">
-            <h1>COMMANDE DE PILOTAGE</h1>
+        <div id="dialog-config" title="Configuration des contrôles" style="display:none;"></div>
+            <div class="controls-panel">
+                <h1>COMMANDE DE PILOTAGE</h1>
 
-            <div class="controls-players">
-                <!-- Joueur 1 -->
-                <div class="controls-player player-cyan">
-                    <h3>Cycle Cyan</h3>
-                    <div class="cmd">
-                        <p>Gauche</p>
-                        <div class="key-cyan">Q</div>
+                <div class="controls-players">
+                    <!-- Joueur 1 -->
+                    <div class="controls-player player-cyan">
+                        <h3>Cycle Cyan</h3>
+                        <div class="cmd">
+                            <p>Gauche</p>
+                            <div class="key-cyan">Q</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Droite</p>
+                            <div class="key-cyan">D</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Haut</p>
+                            <div class="key-cyan">Z</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Bas</p>
+                            <div class="key-cyan">S</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Saut</p>
+                            <div class="key-cyan">A</div>
+                        </div>
                     </div>
-                    <div class="cmd">
-                        <p>Droite</p>
-                        <div class="key-cyan">D</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Haut</p>
-                        <div class="key-cyan">Z</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Bas</p>
-                        <div class="key-cyan">S</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Boost</p>
-                        <div class="key-cyan">A</div>
-                    </div>
-                </div>
 
-                <!-- Joueur 2 -->
-                <div class="controls-player player-orange">
-                    <h3>Cycle Orange</h3>
-                    <div class="cmd">
-                        <p>Gauche</p>
-                        <div class="key-orange">O</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Droite</p>
-                        <div class="key-orange">K</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Haut</p>
-                        <div class="key-orange">;</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Bas</p>
-                        <div class="key-orange">M</div>
-                    </div>
-                    <div class="cmd">
-                        <p>Boost</p>
-                        <div class="key-orange">P</div>
+                    <!-- Joueur 2 -->
+                    <div class="controls-player player-orange">
+                        <h3>Cycle Orange</h3>
+                        <div class="cmd">
+                            <p>Gauche</p>
+                            <div class="key-orange">O</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Droite</p>
+                            <div class="key-orange">K</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Haut</p>
+                            <div class="key-orange">;</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Bas</p>
+                            <div class="key-orange">M</div>
+                        </div>
+                        <div class="cmd">
+                            <p>Saut</p>
+                            <div class="key-orange">P</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+       
 
 
 </body>
