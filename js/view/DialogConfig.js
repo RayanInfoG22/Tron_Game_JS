@@ -37,7 +37,11 @@ $(function () {
     $("#dialog-config").dialog({
         autoOpen: false,
         modal: true,
-        width: 400
+        width: 800,
+        classes: {
+            'ui-dialog': 'controls-modal',
+            'ui-dialog-titlebar': 'controls-titlebar'
+        }
     });
 
     // Bouton pour ouvrir la modale
@@ -48,7 +52,6 @@ $(function () {
         $("#dialog-config .key-cyan").eq(2).text(controls.joueur1.haut);
         $("#dialog-config .key-cyan").eq(3).text(controls.joueur1.bas);
         $("#dialog-config .key-cyan").eq(4).text(controls.joueur1.saut);
-
         $("#dialog-config .key-orange").eq(0).text(controls.joueur2.gauche);
         $("#dialog-config .key-orange").eq(1).text(controls.joueur2.droite);
         $("#dialog-config .key-orange").eq(2).text(controls.joueur2.haut);
@@ -88,7 +91,7 @@ $(function () {
 
         alert("Touches sauvegardées !");
         $("#dialog-config").dialog("close");
-    });
+    }); 
 
     // Annuler
     $("#btn-cancel-controls").click(function () {
