@@ -67,42 +67,42 @@ class Canevas {
 
 
     //la tete du joueure
-// dessinerTete(position, couleur, direction) {
-//     const ctx = this.context;
-//     const taille = this.tailleCase;
-//     const x = position.x * taille;
-//     const y = position.y * taille;
+dessinerTete(position, couleur, direction) {
+    const ctx = this.context;
+    const taille = this.tailleCase;
+    const x = position.x * taille;
+    const y = position.y * taille;
 
-//     ctx.fillStyle = couleur;
-//     ctx.beginPath();
+    ctx.fillStyle = couleur;
+    ctx.beginPath();
 
-//     switch(direction) {
-//         case 'droite':
-//             ctx.moveTo(x, y);
-//             ctx.arc(x + taille / 2, y + taille / 2, taille / 2, 0.5 * Math.PI, 1.5 * Math.PI);
-//             ctx.closePath();
-//             break;
-//         case 'gauche':
-//             ctx.moveTo(x + taille, y);
-//             ctx.arc(x + taille / 2, y + taille / 2, taille / 2, 1.5 * Math.PI, 0.5 * Math.PI);
-//             ctx.closePath();
-//             break;
-//         case 'haut':
-//             ctx.moveTo(x, y + taille);
-//             ctx.arc(x + taille / 2, y + taille / 2, taille / 2, Math.PI, 0);
-//             ctx.closePath();
-//             break;
-//         case 'bas':
-//             ctx.moveTo(x, y);
-//             ctx.arc(x + taille / 2, y + taille / 2, taille / 2, 0, Math.PI);
-//             ctx.closePath();
-//             break;
-//         default:
-//             ctx.fillRect(x, y, taille, taille);
-//     }
+    switch(direction) {
+        case 'droite':
+            ctx.moveTo(x, y);
+            ctx.arc(x + taille / 2, y + taille / 2, taille / 2, 0.5 * Math.PI, 1.5 * Math.PI);
+            ctx.closePath();
+            break;
+        case 'gauche':
+            ctx.moveTo(x + taille, y);
+            ctx.arc(x + taille / 2, y + taille / 2, taille / 2, 1.5 * Math.PI, 0.5 * Math.PI);
+            ctx.closePath();
+            break;
+        case 'haut':
+            ctx.moveTo(x, y + taille);
+            ctx.arc(x + taille / 2, y + taille / 2, taille / 2, Math.PI, 0);
+            ctx.closePath();
+            break;
+        case 'bas':
+            ctx.moveTo(x, y);
+            ctx.arc(x + taille / 2, y + taille / 2, taille / 2, 0, Math.PI);
+            ctx.closePath();
+            break;
+        default:
+            ctx.fillRect(x, y, taille, taille);
+    }
 
-//     ctx.fill();
-// }
+    ctx.fill();
+}
 
 
 
