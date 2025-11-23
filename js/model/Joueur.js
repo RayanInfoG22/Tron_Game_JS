@@ -1,5 +1,7 @@
 
 import Point from "./Point.js";
+import Historique from "./Historique.js"
+
 class Joueur {
     constructor(nom, couleur, positionInitiale, directionInitiale, controles, grille) {
         this.nom = nom;
