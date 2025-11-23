@@ -1,33 +1,14 @@
-
-class Jeu{
-    constructor(canvas,grille,joueurs,tableauScores,manche,enCours){
-        this.canvas=canvas;
-        this.grille=grille
-        this.joueurs=joueurs
-        this.tableauScores=tableauScores
-        this.manche=manche
-        this.enCours=enCours
-    }
-    demmarerJeu(){
-
-    }
-    arreterJeu(){
-
-    }
-    mettreAJour(){
-
-    }
-    terminerManche(){
-        
-    }
-}
-
-
-export default Jeu;
-import Grille from Grille.js;
-import Canvas from Canvas.js;
-
-
+/**
+ * la class jeu :
+ * gérer la grille
+ * gérer les joueurs
+ * gérer le score
+ * exécuter la boucle du jeu
+ * vérifier les collisions
+ * demander au canevas de se redraw
+ * gérer le début/fin de manche
+ *
+ */
 
 
 

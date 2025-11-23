@@ -86,7 +86,7 @@ $(function () {
         // Sauvegarder dans localStorage
         localStorage.setItem("tronControls", JSON.stringify(controls));
 
-        // Mettre à jour l'affichage sur la page
+        // Maj l'affichage sur la page
         majAffichage();
 
         alert("Touches sauvegardées !");
