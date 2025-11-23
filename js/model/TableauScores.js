@@ -1,10 +1,34 @@
-class TableauScores{
-    
-    constructor(scores,joueur1){
-        this.scores=scores;
-        this.joueur1=joueur1;
 
-    }
+
+class TableauScores {
+    constructor(joueurs) {
     
-   
+        this.scores = {};
+
+        joueurs.forEach(j => {
+            this.scores[j.nom] = 0;
+        });
     }
+
+    ajouterPoint(nomJoueur) {
+        if (this.scores[nomJoueur] !== undefined) {
+            this.scores[nomJoueur]++;
+        }
+    }
+    obtenirScore(nomJoueur) {
+        return this.scores[nomJoueur] || 0;
+    }
+
+    
+    obtenirTousLesScores() {
+        return this.scores;
+    }
+
+    reinitialiser() {
+        for (let nom in this.scores) {
+            this.scores[nom] = 0;
+        }
+    }
+}
+
+export default TableauScores;
