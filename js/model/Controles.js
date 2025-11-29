@@ -8,15 +8,15 @@
 
 class Controles {
   constructor(numeroJoueur) {
-    this.numeroJoueur = numeroJoueur
+    this.numeroJoueur = numeroJoueur;
     // clé unique pour le localStorage selon le joueur
-    this.cleLocalStorage = `tronControlsJ${numeroJoueur}`
+    this.cleLocalStorage = `tronControlsJ${numeroJoueur}`;
 
     // recupere les touches depuis localStorage sinon par défaut
-    this.touchesDirection = JSON.parse(localStorage.getItem(this.cleLocalStorage)) || this.touchesParDefaut()
+    this.touchesDirection = JSON.parse(localStorage.getItem(this.cleLocalStorage)) || this.touchesParDefaut();
 
-    this.directionSuivante = []
-    this.directionActuelle = null
+    this.directionSuivante = [];
+    this.directionActuelle = null;
   }
 
   touchesParDefaut() {
