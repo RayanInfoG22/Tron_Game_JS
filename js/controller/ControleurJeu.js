@@ -112,12 +112,7 @@ class ControleurJeu {
                 const touchesJoueur = Object.values(joueur.touchesDirection);
                 const touchesAutre = Object.values(autreJoueur.touchesDirection);
 
-                if (key.length !== 1) {
-                    alert("La touche doit être un seul caractère !");
-                    div.text(oldValue);
-                    $(document).off("keydown", handleKey);
-                    return;
-                }
+              
                 if (touchesJoueur.includes(key)) {
                     alert("Cette touche est déjà utilisée par ce joueur !");
                     div.text(oldValue);
@@ -151,12 +146,12 @@ class ControleurJeu {
 
             $(".key-cyan").each((_i, elem) => {
                 const key = $(elem).text();
-                if (key.length !== 1 || key === "_") valide = false;
+                if (key === "_") valide = false;
             });
 
             $(".key-orange").each((_i, elem) => {
                 const key = $(elem).text();
-                if (key.length !== 1 || key === "_") valide = false;
+                if (key === "_") valide = false;
             });
 
             if (!valide) {

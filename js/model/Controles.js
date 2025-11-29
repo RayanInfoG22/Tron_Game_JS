@@ -48,10 +48,7 @@ class Controles {
   definirTouche(direction, key) {
     key = key.toUpperCase()
 
-    if (key.length !== 1) {
-      alert("La touche doit être un seul caractère !")
-      return false
-    }
+    
 
     this.touchesDirection[direction] = key
     if (typeof this.sauvegarder === "function") this.sauvegarder();
