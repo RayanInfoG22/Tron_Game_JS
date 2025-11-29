@@ -1,6 +1,6 @@
-
+// Joueur.js
 import Point from "./Point.js";
-import Historique from "./Historique.js"
+import Historique from "./Historique.js";
 
 class Joueur {
     constructor(nom, couleur, positionInitiale, directionInitiale, controles, grille) {
@@ -8,75 +8,81 @@ class Joueur {
         this.couleur = couleur;
         this.controles = controles;
         this.grille = grille;
+
         this.position = new Point(positionInitiale.x, positionInitiale.y);
         this.direction = directionInitiale;
-        this.trace = [new Point(positionInitiale.x, positionInitiale.y)];
+        this.trace = [new Point(this.position.x, this.position.y)];
+
         this.historique = new Historique();
         this.historique.ajouter(this.position);
+
         this.vivant = true;
-
-
-
+        this._demandeSaut = false;
     }
 
-
-    //Met à jour la direction apartir des controles
-
+    // Met à jour la direction à partir des controles (une seule direction par tick)
     mettreAJourDirection() {
-        const prochaineDir = this.controles.prochaineDirection();
-        if (prochaineDir && !this.estDirectionInverse(prochaineDir)) {
-            this.direction = prochaineDir;
+        const prochain = this.controles.prochaineDirection();
+        if (prochain && !this.estDirectionInverse(prochain)) {
+            this.direction = prochain;
         }
     }
 
-    //Vérifie si la nouvelle direction est l'inverse de l'actuelle
     estDirectionInverse(nouvelleDir) {
         return (
-            (this.direction === 'haut' && nouvelleDir === 'bas') ||
-            (this.direction === 'bas' && nouvelleDir === 'haut') ||
-            (this.direction === 'gauche' && nouvelleDir === 'droite') ||
-            (this.direction === 'droite' && nouvelleDir === 'gauche')
+            (this.direction === "haut" && nouvelleDir === "bas") ||
+            (this.direction === "bas" && nouvelleDir === "haut") ||
+            (this.direction === "gauche" && nouvelleDir === "droite") ||
+            (this.direction === "droite" && nouvelleDir === "gauche")
         );
     }
 
-
-
     deplacer() {
-
         if (!this.vivant) return;
-
-        let newPosition = this.position.suivant(this.direction)
-
-        if (this.grille.estlibre(newPosition.x, newPosition.y) &&
-            !this.historique.contient(newPosition)) {
-            this.position = newPosition;
-            this.trace.push(new Point(this.position.x, this.position.y));
-            this.historique.ajouter(new Point(this.position.x, this.position.y));
-            this.grille.occuper(this.position.x, this.position.y, this.nom);
-
+        const np = this.position.suivant(this.direction);
+        if (
+            np.x < 0 || np.x >= this.grille.colonnes ||
+            np.y < 0 || np.y >= this.grille.lignes ||
+            !this.grille.estlibre(np.x, np.y) ||
+            this.historique.contient(np)
+        ) {
+            this.vivant = false;
+            return;
         }
-        else {
-            this.vivant = false; //coullision
-        }
-
-
-
+        this._appliquerPosition(np);
     }
+
     sauter() {
         if (!this.vivant) return;
-
-        const newPosition = this.position.suivant(this.direction, 1);
-        if (this.grille.estlibre(newPosition.x, newPosition.y) &&
-            !this.historique.contient(newPosition)) {
-            this.position = newPosition;
-            this.trace.push(new Point(this.position.x, this.position.y));
-            this.historique.ajouter(new Point(this.position.x, this.position.y));
-            this.grille.occuper(this.position.x, this.position.y, this.nom);
+        const np = this.position.suivant(this.direction, 2);
+        if (np.x < 0 || np.x >= this.grille.colonnes || np.y < 0 || np.y >= this.grille.lignes) {
+            this.vivant = false;
+        } else if (this.grille.estlibre(np.x, np.y) && !this.historique.contient(np)) {
+            this._appliquerPosition(np);
         } else {
             this.vivant = false;
         }
+        this._demandeSaut = false;
     }
 
+    _appliquerPosition(np) {
+        this.position = new Point(np.x, np.y);
+        this.trace.push(new Point(np.x, np.y));
+        this.historique.ajouter(new Point(np.x, np.y));
+        this.grille.occuper(np.x, np.y, this.nom);
+    }
 
+    reinitialiser(posObj, dir) {
+        this.position = new Point(posObj.x, posObj.y);
+        this.direction = dir;
+        this.trace = [new Point(this.position.x, this.position.y)];
+        if (this.historique && typeof this.historique.reset === "function") {
+            this.historique.reset();
+            this.historique.ajouter(new Point(this.position.x, this.position.y));
+        }
+        this.vivant = true;
+        this._demandeSaut = false;
+    }
 }
+
 export default Joueur;

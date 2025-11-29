@@ -1,22 +1,22 @@
 
 class Historique {
     constructor() {
-        this.Point = [];
+        this.points = [];
     }
-     
+
     ajouter(point) {
 
-        this.Point.push(point);
+        this.points.push({ x: point.x, y: point.y });
     }
 
     contient(point) {
-        return this.Point.some(p => p.compare(point));
+        return this.points.some(p => p.x === point.x && p.y === point.y);
     }
 
 
 
     reset() {
-        this.Point = [];
+        this.points = [];
     }
 }
 

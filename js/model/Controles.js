@@ -21,11 +21,29 @@ class Controles {
 
   touchesParDefaut() {
     if (this.numeroJoueur === 1) {
-      return { gauche: "Q", droite: "D", haut: "Z", bas: "S", saut: "A" }
+      return { gauche: "Q", droite: "D", haut: "Z", bas: "W", saut: "A" }
     } else {
-      return { gauche: "O", droite: "K", haut: ";", bas: "M", saut: "P" }
+      return { gauche: "O", droite: "K", haut: ";", bas: "M", saut: "P" };
     }
   }
+  afficherTouchesDansHTML(touchesJ1, touchesJ2) {
+    const ordre = ["gauche", "droite", "haut", "bas", "saut"];
+
+    // Joueur 1
+    document.querySelectorAll(".player-cyan .key-cyan")
+      .forEach((div, i) => {
+        const action = ordre[i];
+        div.textContent = touchesJ1[action];
+      });
+
+    // Joueur 2
+    document.querySelectorAll(".player-orange .key-orange")
+      .forEach((div, i) => {
+        const action = ordre[i];
+        div.textContent = touchesJ2[action];
+      });
+  }
+
 
   definirTouche(direction, key) {
     key = key.toUpperCase()
@@ -36,7 +54,8 @@ class Controles {
     }
 
     this.touchesDirection[direction] = key
-    this.sauvegarder?.()
+    if (typeof this.sauvegarder === "function") this.sauvegarder();
+
     return true
   }
 

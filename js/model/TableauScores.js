@@ -1,12 +1,11 @@
 
 
 class TableauScores {
-    constructor(joueurs) {
-    
+    constructor(joueurs = []) {
         this.scores = {};
-
         joueurs.forEach(j => {
-            this.scores[j.nom] = 0;
+            const nom = j && j.nom ? j.nom : j;
+            this.scores[nom] = 0;
         });
     }
 
@@ -19,9 +18,9 @@ class TableauScores {
         return this.scores[nomJoueur] || 0;
     }
 
-    
+
     obtenirTousLesScores() {
-        return this.scores;
+        return { ...this.scores };
     }
 
     reinitialiser() {
