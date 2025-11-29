@@ -21,7 +21,7 @@ class Controles {
 
   touchesParDefaut() {
     if (this.numeroJoueur === 1) {
-      return { gauche: "Q", droite: "D", haut: "Z", bas: "W", saut: "A" }
+      return { gauche: "Q", droite: "D", haut: "Z", bas: "W", saut: "A" };
     } else {
       return { gauche: "O", droite: "K", haut: ";", bas: "M", saut: "P" };
     }
@@ -46,40 +46,40 @@ class Controles {
 
 
   definirTouche(direction, key) {
-    key = key.toUpperCase()
+    key = key.toUpperCase();
 
     
 
-    this.touchesDirection[direction] = key
+    this.touchesDirection[direction] = key;
     if (typeof this.sauvegarder === "function") this.sauvegarder();
 
-    return true
+    return true;
   }
 
   obtenirTouche(direction) {
-    return this.touchesDirection[direction]
+    return this.touchesDirection[direction];
   }
 
   // Sauvegarde la configuration actuelle dans le localStorage
 
   sauvegarder() {
-    localStorage.setItem(this.cleLocalStorage, JSON.stringify(this.touchesDirection))
+    localStorage.setItem(this.cleLocalStorage, JSON.stringify(this.touchesDirection));
   }
 
   ajouterDirection(dir) {
-    this.directionSuivante.push(dir)
+    this.directionSuivante.push(dir);
   }
 
   prochaineDirection() {
-    return this.directionSuivante.shift() || null
+    return this.directionSuivante.shift() || null;
   }
 
   reinitialiser() {
-    this.touchesDirection = this.touchesParDefaut()
-    this.directionSuivante = []
-    this.directionActuelle = null
-    this.sauvegarder()
+    this.touchesDirection = this.touchesParDefaut();
+    this.directionSuivante = [];
+    this.directionActuelle = null;
+    this.sauvegarder();
   }
 }
 
-export default Controles
+export default Controles;

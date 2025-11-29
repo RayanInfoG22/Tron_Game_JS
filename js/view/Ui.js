@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         etoile.style.height = taille + 'px';
 
         // Couleur aléatoire (bleu ou red)
-        const couleur = Math.random() > 0.5
-            ? getComputedStyle(document.documentElement).getPropertyValue('--couleur-cyan')
-            : getComputedStyle(document.documentElement).getPropertyValue('--couleur-red');
+        const couleur = Math.random() > 0.5 ?
+            getComputedStyle(document.documentElement).getPropertyValue('--couleur-cyan') :
+            getComputedStyle(document.documentElement).getPropertyValue('--couleur-red');
 
 
         etoile.style.backgroundColor = couleur.trim();

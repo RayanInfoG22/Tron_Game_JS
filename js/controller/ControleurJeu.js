@@ -5,6 +5,7 @@
 *Gère les boutons/Nouvelle Partie et Configuration des touches
 *Utilise jQuery UI pour la fenêtre de configuration des touches et sauvegarde les nouvelles touches dans le localStorage
  */
+
 /* global $ */
 
 

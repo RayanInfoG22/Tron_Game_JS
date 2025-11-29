@@ -3,6 +3,7 @@
  *  Affiche les touches actuelles
  *  Déclenche des événements pour le contrôleur
  */
+/* global $ */
 
 $(function () {
 

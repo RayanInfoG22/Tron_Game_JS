@@ -1,7 +1,6 @@
 // Jeu.js
 import Joueur from "./Joueur.js";
 import Grille from "./Grille.js";
-import Point from "./Point.js";
 
 class Jeu {
     constructor(canevas, tickMs = 100) {
@@ -142,30 +141,42 @@ _restaurerBoutons() {
         this._dessiner();
     }
 
-    _dessiner() {
-        if (!this.canevas) return;
-        if (typeof this.canevas.effacer === "function") this.canevas.effacer();
+   _dessiner() {
+    if (!this.canevas) return;
 
-        [this.joueur1, this.joueur2].forEach(j => {
-            if (!j) return;
-            const trace = j.trace || [];
-            if (Array.isArray(trace)) {
-                if (typeof this.canevas.dessinerTrace === "function") {
-                    this.canevas.dessinerTrace(trace, j.couleur);
-                } else {
-                    trace.forEach(p => this.canevas.dessinerCase && this.canevas.dessinerCase(p.x, p.y, j.couleur));
-                }
-            }
-
-            const pos = j.position;
-            if (!pos) return;
-            if (typeof this.canevas.dessinerTete === "function") {
-                this.canevas.dessinerTete(pos, j.couleur, j.direction);
-            } else {
-                this.canevas.dessinerCase && this.canevas.dessinerCase(pos.x, pos.y, j.couleur);
-            }
-        });
+    if (typeof this.canevas.effacer === "function") {
+        this.canevas.effacer();
     }
+
+    [this.joueur1, this.joueur2].forEach(j => {
+        if (!j) return;
+
+        const trace = j.trace || [];
+        if (Array.isArray(trace)) {
+            if (typeof this.canevas.dessinerTrace === "function") {
+                this.canevas.dessinerTrace(trace, j.couleur);
+            } else {
+                trace.forEach(p => {
+                    if (typeof this.canevas.dessinerCase === "function") {
+                        this.canevas.dessinerCase(p.x, p.y, j.couleur);
+                    }
+                });
+            }
+        }
+
+        const pos = j.position;
+        if (!pos) return;
+
+        if (typeof this.canevas.dessinerTete === "function") {
+            this.canevas.dessinerTete(pos, j.couleur, j.direction);
+        } else {
+            if (typeof this.canevas.dessinerCase === "function") {
+                this.canevas.dessinerCase(pos.x, pos.y, j.couleur);
+            }
+        }
+    });
+}
+
 
     remplirTouchesConfig(j1, j2) {
     const touchesJ1 = [j1.touches.gauche, j1.touches.droite, j1.touches.haut, j1.touches.bas, j1.touches.saut];

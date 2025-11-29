@@ -20,7 +20,7 @@ class TableauScores {
 
 
     obtenirTousLesScores() {
-        return { ...this.scores };
+        return Object.assign({}, this.scores);
     }
 
     reinitialiser() {
