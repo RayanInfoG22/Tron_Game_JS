@@ -37,7 +37,7 @@ class Controles {
       });
 
     // Joueur 2
-    document.querySelectorAll(".player-orange .key-orange")
+    document.querySelectorAll(".player-red .key-red")
       .forEach((div, i) => {
         const action = ordre[i];
         div.textContent = touchesJ2[action];

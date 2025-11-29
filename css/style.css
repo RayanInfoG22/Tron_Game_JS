@@ -3,17 +3,17 @@
 :root {
   --couleur-fond: #0a0f1f;
   --couleur-cyan: #00e5ff;
-  --couleur-orange: #ff9100;
+  --couleur-red: #ff3d3d;
   --couleur-blanc: #e0e0e0;
   --couleur-gris: #222;
   --couleur-gris-clair: #444;
 
   --neon-cyan: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 40px #00bcd4;
-  --neon-orange: 0 0 10px #ff9100, 0 0 20px #ff9100, 0 0 40px #ff6d00;
+  --neon-red: 0 0 10px #ff3d3d, 0 0 20px #ff5a5a, 0 0 40px #ff7a7a;
   --neon-blanc: 0 0 10px #ffffff, 0 0 20px #e0e0e0, 0 0 30px #aaaaaa;
 
   --bordure-cyan: 1px solid #00e5ff;
-  --bordure-orange: 1px solid #ff9100;
+  --bordure-red: 1px solid #ff3d3d;
   --bordure-grise: 1px solid #333;
 
   --font-principale: 'Orbitron', sans-serif;
@@ -141,7 +141,7 @@ body {
   text-align: center;
 }
 
-/* Cercles imbriqués Joueur 1 (orange) */
+/* Cercles imbriqués Joueur 1 (red) */
 .player-circle-outer {
   width: 6rem;
   height: 6rem;
@@ -177,7 +177,7 @@ body {
 
 
 /* Score */
-.player-circle-inner.orange .score,
+.player-circle-inner.red .score,
 .player-circle-inner.blue .score {
   font-size: 2rem;
   color: var(--couleur-blanc);
@@ -199,19 +199,19 @@ body {
   border: 1.455px solid rgba(0, 255, 255, 0.5);
 }
 
-/* Joueur 2 (orange) */
-.player-circle-outer.orange {
-  border: 1.455px solid rgba(255, 137, 4, 0.5);
-  background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255, 137, 4, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+/* Joueur 2 (red) */
+.player-circle-outer.red {
+  border: 1.455px solid rgba(255, 61, 61, 0.5);
+  background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255, 61, 61, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
 }
 
-.player-circle-middle.orange {
-  border: 0.727px solid rgba(255, 137, 4, 0.3);
+.player-circle-middle.red {
+  border: 0.727px solid rgba(255, 61, 61, 0.3);
 }
 
-.player-circle-inner.orange {
-  border: 1.455px solid rgba(255, 137, 4, 0.5);
-  color: #ff9100;
+.player-circle-inner.red {
+  border: 1.455px solid rgba(255, 61, 61, 0.5);
+  color: #ff3d3d;
 }
 
 
@@ -304,8 +304,8 @@ button {
 }
 
 .btn-config {
-  color: var(--couleur-orange);
-  border: var(--bordure-orange);
+  color: var(--couleur-red);
+  border: var(--bordure-red);
   background: rgba(255, 165, 0, 0.1);
 }
 
@@ -396,8 +396,8 @@ button:hover {
   background: linear-gradient(135deg, rgba(0, 184, 219, 0.05) 0%, rgba(43, 127, 255, 0.05) 100%);
 }
 
-.player-orange {
-  color: var(--couleur-orange);
+.player-red {
+  color: var(--couleur-red);
   border-radius: 0.875rem;
   border: 0.727px solid rgba(255, 105, 0, 0.20);
   background: linear-gradient(135deg, rgba(255, 105, 0, 0.05) 0%, rgba(251, 44, 54, 0.05) 100%);
@@ -412,7 +412,7 @@ button:hover {
   font-size: 1.2rem;
 }
 
-.key-orange {
+.key-red {
   color: var(--couleur-blanc);
   border-radius: 0.625rem;
   border: 0.727px solid rgba(255, 105, 0, 0.20);
@@ -494,7 +494,7 @@ button:hover {
 
 /* Bouton Annuler */
 #btn-cancel-controls {
-    color: var(--couleur-orange);
+    color: var(--couleur-red);
     border: 1px solid rgba(255, 137, 4, 0.5);
     background: rgba(255, 137, 4, 0.1);
     padding: 0.6rem 1.4rem;
@@ -511,7 +511,23 @@ button:hover {
     transform: scale(1.05);
 }
 
+#btn-reset-controls {
+    color: var(--couleur-gris); /* texte foncé pour contraste */
+    border: 1px solid rgba(0,0,0,0.2);
+    background: var(--couleur-blanc); /* fond blanc clair */
+    padding: 0.6rem 1.4rem;
+    font-family: var(--font-principale);
+    font-size: 1rem;
+    border-radius: 0.6rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
+#btn-reset-controls:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1), 0 0 20px rgba(0,0,0,0.05);
+    transform: scale(1.05);
+}
 
 /*media queries ----------------*/
 

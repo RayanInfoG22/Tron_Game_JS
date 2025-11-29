@@ -24,7 +24,7 @@ $(function () {
   
     function majAffichage(controls) {
         $(".key-cyan").each((i, elem) => $(elem).text(Object.values(controls.joueur1)[i]));
-        $(".key-orange").each((i, elem) => $(elem).text(Object.values(controls.joueur2)[i]));
+        $(".key-red").each((i, elem) => $(elem).text(Object.values(controls.joueur2)[i]));
     }
 
 

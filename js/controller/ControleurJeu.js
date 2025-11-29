@@ -89,19 +89,19 @@ class ControleurJeu {
             // Panel principal
             $(".controls-player.player-cyan .key-cyan").eq(i)
                 .text(this.controlesJ1.touchesDirection[action]);
-            $(".controls-player.player-orange .key-orange").eq(i)
+            $(".controls-player.player-red .key-red").eq(i)
                 .text(this.controlesJ2.touchesDirection[action]);
 
             // Dialogue
             $("#dialog-config .key-cyan").eq(i)
                 .text(this.controlesJ1.touchesDirection[action]);
-            $("#dialog-config .key-orange").eq(i)
+            $("#dialog-config .key-red").eq(i)
                 .text(this.controlesJ2.touchesDirection[action]);
         });
     };
 
     // edition des touches uniquement DANS le dialogue
-    $("#dialog-config .key-cyan, #dialog-config .key-orange").on("click", (event) => {
+    $("#dialog-config .key-cyan, #dialog-config .key-red").on("click", (event) => {
         const div = $(event.currentTarget);
         const oldValue = div.text();
         div.text("_");
@@ -145,7 +145,7 @@ class ControleurJeu {
     $("#btn-save-controls").on("click", () => {
         let valide = true;
 
-        $("#dialog-config .key-cyan, #dialog-config .key-orange").each((_i, elem) => {
+        $("#dialog-config .key-cyan, #dialog-config .key-red").each((_i, elem) => {
             if ($(elem).text() === "_") valide = false;
         });
 

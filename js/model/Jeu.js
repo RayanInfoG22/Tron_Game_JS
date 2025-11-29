@@ -174,7 +174,7 @@ _restaurerBoutons() {
     document.querySelectorAll(".player-cyan .key-cyan")
         .forEach((el, i) => el.textContent = touchesJ1[i]);
 
-    document.querySelectorAll(".player-orange .key-orange")
+    document.querySelectorAll(".player-red .key-red")
         .forEach((el, i) => el.textContent = touchesJ2[i]);
 }
 
