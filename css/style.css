@@ -427,26 +427,31 @@ button:hover {
 
 
 
+.ui-dialog,
+.ui-dialog .ui-dialog-content,
+.ui-widget-content,
+.ui-corner-all {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
 
-/* Modale jQuery UI  */
+
+.ui-dialog .ui-dialog-titlebar,
+.ui-widget-header {
+  text-align: center;
+      background: rgba(0, 0, 0, 0.9) !important;
+    border: none !important;
+    color: var(--couleur-blanc) !important;
+    text-shadow: var(--neon-cyan);
+    border-radius: 1rem 1rem 0 0 !important;
+}
 .controls-modal {
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.9) !important;
     border: 1px solid rgba(0, 184, 219, 0.5);
     border-radius: 1rem;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.2),
                 inset 0 0 10px rgba(0, 255, 255, 0.1);
-    font-family: var(--font-seconaire);
-    color: var(--couleur-blanc);
-}
-
-.controls-titlebar {
-    background: linear-gradient(90deg, var(--couleur-cyan), var(--couleur-orange));
-    border-bottom: 1px solid rgba(0,255,255,0.5);
-    text-align: center;
-    font-family: var(--font-principale);
-    font-size: 1.2rem;
-    color: var(--couleur-blanc);
-    text-shadow: var(--neon-cyan);
 }
 
 
