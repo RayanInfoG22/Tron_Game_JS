@@ -28,6 +28,7 @@ class ControleurJeu {
         this._initialiserBoutons();
         this._initialiserClavier();
         this._initialiserDialogConfig();
+        this.majAffichagePanel();
     }
 
     _initialiserBoutons() {
@@ -74,137 +75,110 @@ class ControleurJeu {
     }
 
     _initialiserDialogConfig() {
-        $("#dialog-config").dialog({
-            autoOpen: false,
-            width: 400,
-            modal: true,
+    
+    $("#dialog-config").dialog({
+        autoOpen: false,
+        width: 400,
+        modal: true
+    });
+
+    // function pour mettre à jour le panel principal ET le dialogue
+    const majAffichagePanel = () => {
+        const actions = ["gauche", "droite", "haut", "bas", "saut"];
+
+        actions.forEach((action, i) => {
+            // Panel principal
+            $(".controls-player.player-cyan .key-cyan").eq(i)
+                .text(this.controlesJ1.touchesDirection[action]);
+            $(".controls-player.player-orange .key-orange").eq(i)
+                .text(this.controlesJ2.touchesDirection[action]);
+
+            // Dialogue
+            $("#dialog-config .key-cyan").eq(i)
+                .text(this.controlesJ1.touchesDirection[action]);
+            $("#dialog-config .key-orange").eq(i)
+                .text(this.controlesJ2.touchesDirection[action]);
         });
+    };
 
-        const majAffichagePanel = () => {
-            // Panel joueur 1
-            $(".controls-player.player-cyan .key-cyan").eq(0).text(this.controlesJ1.touchesDirection.gauche);
-            $(".controls-player.player-cyan .key-cyan").eq(1).text(this.controlesJ1.touchesDirection.droite);
-            $(".controls-player.player-cyan .key-cyan").eq(2).text(this.controlesJ1.touchesDirection.haut);
-            $(".controls-player.player-cyan .key-cyan").eq(3).text(this.controlesJ1.touchesDirection.bas);
-            $(".controls-player.player-cyan .key-cyan").eq(4).text(this.controlesJ1.touchesDirection.saut);
+    // edition des touches uniquement DANS le dialogue
+    $("#dialog-config .key-cyan, #dialog-config .key-orange").on("click", (event) => {
+        const div = $(event.currentTarget);
+        const oldValue = div.text();
+        div.text("_");
 
-            // Panel joueur 2
-            $(".controls-player.player-orange .key-orange").eq(0).text(this.controlesJ2.touchesDirection.gauche);
-            $(".controls-player.player-orange .key-orange").eq(1).text(this.controlesJ2.touchesDirection.droite);
-            $(".controls-player.player-orange .key-orange").eq(2).text(this.controlesJ2.touchesDirection.haut);
-            $(".controls-player.player-orange .key-orange").eq(3).text(this.controlesJ2.touchesDirection.bas);
-            $(".controls-player.player-orange .key-orange").eq(4).text(this.controlesJ2.touchesDirection.saut);
-        };
+        const handleKey = (e) => {
+            e.preventDefault();
+            const key = e.key.toUpperCase();
+            const isCyan = div.hasClass("key-cyan");
+            const joueur = isCyan ? this.controlesJ1 : this.controlesJ2;
+            const autreJoueur = isCyan ? this.controlesJ2 : this.controlesJ1;
 
-        // Édition des touches au clic
-        $(".key-cyan, .key-orange").on("click", (event) => {
-            const div = $(event.currentTarget);
-            const oldValue = div.text();
-            div.text("_");
+            const touchesJoueur = Object.values(joueur.touchesDirection);
+            const touchesAutre = Object.values(autreJoueur.touchesDirection);
 
-            const handleKey = (e) => {
-                e.preventDefault();
-                const key = e.key.toUpperCase();
-                const isCyan = div.hasClass("key-cyan");
-                const joueur = isCyan ? this.controlesJ1 : this.controlesJ2;
-                const autreJoueur = isCyan ? this.controlesJ2 : this.controlesJ1;
-
-                const touchesJoueur = Object.values(joueur.touchesDirection);
-                const touchesAutre = Object.values(autreJoueur.touchesDirection);
-
-              
-                if (touchesJoueur.includes(key)) {
-                    alert("Cette touche est déjà utilisée par ce joueur !");
-                    div.text(oldValue);
-                    $(document).off("keydown", handleKey);
-                    return;
-                }
-                if (touchesAutre.includes(key)) {
-                    alert("Cette touche est déjà utilisée par l'autre joueur !");
-                    div.text(oldValue);
-                    $(document).off("keydown", handleKey);
-                    return;
-                }
-
-                // Mise à jour dans l'objet Controles
-                const dir = div.parent().find("p").text().toLowerCase();
-                joueur.definirTouche(dir, key);
-
-                // Mise à jour affichage modale + panel
-                div.text(key);
-                majAffichagePanel();
-
+            if (touchesJoueur.includes(key)) {
+                alert("Cette touche est déjà utilisée par ce joueur !");
+                div.text(oldValue);
                 $(document).off("keydown", handleKey);
-            };
-
-            $(document).on("keydown", handleKey);
-        });
-
-        // Sauvegarder
-        $("#btn-save-controls").on("click", () => {
-            let valide = true;
-
-            $(".key-cyan").each((_i, elem) => {
-                const key = $(elem).text();
-                if (key === "_") valide = false;
-            });
-
-            $(".key-orange").each((_i, elem) => {
-                const key = $(elem).text();
-                if (key === "_") valide = false;
-            });
-
-            if (!valide) {
-                alert("Certaines touches sont invalides ou en conflit. Corrigez-les avant de sauvegarder !");
                 return;
             }
-            majAffichagePanel();
-            alert("Touches sauvegardées !");
+            if (touchesAutre.includes(key)) {
+                alert("Cette touche est déjà utilisée par l'autre joueur !");
+                div.text(oldValue);
+                $(document).off("keydown", handleKey);
+                return;
+            }
 
-            $("#dialog-config").dialog("close");
+            const dir = div.parent().find("p").text().toLowerCase();
+            joueur.definirTouche(dir, key);
+
+            
+            majAffichagePanel();
+
+            $(document).off("keydown", handleKey);
+        };
+
+        $(document).on("keydown", handleKey);
+    });
+
+
+    $("#btn-save-controls").on("click", () => {
+        let valide = true;
+
+        $("#dialog-config .key-cyan, #dialog-config .key-orange").each((_i, elem) => {
+            if ($(elem).text() === "_") valide = false;
         });
 
-        // Annuler
-        $("#btn-cancel-controls").on("click", () => {
-            // Recharger depuis Controles pour annuler modifications non sauvegardées
-            $(".key-cyan").eq(0).text(this.controlesJ1.touchesDirection.gauche);
-            $(".key-cyan").eq(1).text(this.controlesJ1.touchesDirection.droite);
-            $(".key-cyan").eq(2).text(this.controlesJ1.touchesDirection.haut);
-            $(".key-cyan").eq(3).text(this.controlesJ1.touchesDirection.bas);
-            $(".key-cyan").eq(4).text(this.controlesJ1.touchesDirection.saut);
+        if (!valide) {
+            alert("Certaines touches sont invalides. Corrigez-les avant de sauvegarder !");
+            return;
+        }
 
-            $(".key-orange").eq(0).text(this.controlesJ2.touchesDirection.gauche);
-            $(".key-orange").eq(1).text(this.controlesJ2.touchesDirection.droite);
-            $(".key-orange").eq(2).text(this.controlesJ2.touchesDirection.haut);
-            $(".key-orange").eq(3).text(this.controlesJ2.touchesDirection.bas);
-            $(".key-orange").eq(4).text(this.controlesJ2.touchesDirection.saut);
+        majAffichagePanel();
+        alert("Touches sauvegardées !");
+        $("#dialog-config").dialog("close");
+    });
 
-            majAffichagePanel();
-            alert("Modification annulée");
-            $("#dialog-config").dialog("close");
-        });
+    $("#btn-cancel-controls").on("click", () => {
+        majAffichagePanel();
+        alert("Modification annulée");
+        $("#dialog-config").dialog("close");
+    });
 
-        // Réinitialiser les touches par défaut
-        $("#btn-reset-controls").on("click", () => {
-            this.controlesJ1.reinitialiser();
-            this.controlesJ2.reinitialiser();
+    $("#btn-reset-controls").on("click", () => {
+        this.controlesJ1.reinitialiser();
+        this.controlesJ2.reinitialiser();
 
-            $(".key-cyan").eq(0).text(this.controlesJ1.touchesDirection.gauche);
-            $(".key-cyan").eq(1).text(this.controlesJ1.touchesDirection.droite);
-            $(".key-cyan").eq(2).text(this.controlesJ1.touchesDirection.haut);
-            $(".key-cyan").eq(3).text(this.controlesJ1.touchesDirection.bas);
-            $(".key-cyan").eq(4).text(this.controlesJ1.touchesDirection.saut);
+        majAffichagePanel();
+        alert("Touches réinitialisées aux valeurs par défaut !");
+    });
 
-            $(".key-orange").eq(0).text(this.controlesJ2.touchesDirection.gauche);
-            $(".key-orange").eq(1).text(this.controlesJ2.touchesDirection.droite);
-            $(".key-orange").eq(2).text(this.controlesJ2.touchesDirection.haut);
-            $(".key-orange").eq(3).text(this.controlesJ2.touchesDirection.bas);
-            $(".key-orange").eq(4).text(this.controlesJ2.touchesDirection.saut);
 
-            majAffichagePanel();
-            alert("Touches réinitialisées aux valeurs par défaut !");
-        });
-    }
+    $("#dialog-config").on("dialogopen", () => {
+        majAffichagePanel();
+    });
+}
 
 }
 
