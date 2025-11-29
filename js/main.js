@@ -9,11 +9,13 @@ const jeu = new Jeu(canvas);
 
 new ControleurJeu(jeu);
 
-const scores = new TableauScores([jeu.joueur2, jeu.joueur1]);
-jeu.lierTableauScores(scores);
+
+const tableauScores = new TableauScores([jeu.joueur1, jeu.joueur2]);
+jeu.lierTableauScores(tableauScores);
 
 setInterval(() => {
-    document.getElementById("score1").textContent = scores.obtenirScore(jeu.joueur1.nom);
-    document.getElementById("score2").textContent = scores.obtenirScore(jeu.joueur2.nom);
+    document.getElementById("score1").textContent = tableauScores.obtenirScore(jeu.joueur2.nom);
+    document.getElementById("score2").textContent = tableauScores.obtenirScore(jeu.joueur1.nom);
 }, 100);
+
 

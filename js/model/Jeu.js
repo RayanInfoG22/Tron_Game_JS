@@ -1,6 +1,7 @@
 // Jeu.js
 import Joueur from "./Joueur.js";
 import Grille from "./Grille.js";
+import TableauScores from "./TableauScores.js";
 
 class Jeu {
     constructor(canevas, tickMs = 100) {
@@ -14,106 +15,96 @@ class Jeu {
         this._intervalId = null;
         this.enCours = false;
 
+        // Joueurs avec positions cohérentes avec le HTML
         this.joueur1 = new Joueur("Joueur 1", "cyan", { x: 1, y: 28 }, "droite", null, this.grille);
         this.joueur2 = new Joueur("Joueur 2", "red", { x: 1, y: 30 }, "droite", null, this.grille);
 
+        // Positions de départ
         this._depart = [
             { x: 1, y: 28, dir: "droite", nom: this.joueur1.nom },
             { x: 1, y: 30, dir: "droite", nom: this.joueur2.nom }
         ];
 
-        this.tableauScores = null;
+        // Tableau des scores
+        this.tableauScores = new TableauScores([this.joueur1, this.joueur2]);
+        this.majScoreboard();
     }
-
     lierControles(controlesJ1, controlesJ2) {
-        if (this.joueur1) this.joueur1.controles = controlesJ1;
-        if (this.joueur2) this.joueur2.controles = controlesJ2;
-    }
+    if (this.joueur1) this.joueur1.controles = controlesJ1;
+    if (this.joueur2) this.joueur2.controles = controlesJ2;
+}
 
+   
     lierTableauScores(tableauScores) {
         this.tableauScores = tableauScores;
     }
 
-demarrerJeu() {
-    if (this.enCours) return;
-    this.enCours = true;
+    demarrerJeu() {
+        if (this.enCours) return;
+        this.enCours = true;
 
-    const btnNouvellePartie = document.querySelector(".btn-new-game");
-    const btnConfig = document.querySelector(".btn-config");
+        const btnNouvellePartie = document.querySelector(".btn-new-game");
+        const btnConfig = document.querySelector(".btn-config");
 
-    if (btnNouvellePartie) {
-        btnNouvellePartie.disabled = true;
-        btnNouvellePartie.textContent = "Partie en cours";
-        btnNouvellePartie.classList.add("btn-disabled-game");
+        if (btnNouvellePartie) {
+            btnNouvellePartie.disabled = true;
+            btnNouvellePartie.textContent = "Partie en cours";
+            btnNouvellePartie.classList.add("btn-disabled-game");
+        }
+
+        if (btnConfig) {
+            btnConfig.disabled = true;
+            btnConfig.classList.add("btn-disabled-config");
+        }
+
+        this.reinitialiserManche();
+        this._intervalId = setInterval(() => {
+            this.mettreAJour();
+            this.majScoreboard(); // <- MAJ dynamique à chaque tick
+        }, this.tickMs);
     }
 
-    if (btnConfig) {
-        btnConfig.disabled = true;
-        btnConfig.classList.add("btn-disabled-config");
+    arreterJeu() {
+        if (!this.enCours) return;
+        clearInterval(this._intervalId);
+        this.enCours = false;
+
+        const btnNouvellePartie = document.querySelector(".btn-new-game");
+        const btnConfig = document.querySelector(".btn-config");
+
+        if (btnNouvellePartie) {
+            btnNouvellePartie.disabled = false;
+            btnNouvellePartie.textContent = "Nouvelle Partie";
+            btnNouvellePartie.classList.remove("btn-disabled-game");
+        }
+        if (btnConfig) {
+            btnConfig.disabled = false;
+            btnConfig.classList.remove("btn-disabled-config");
+        }
     }
 
-    this.reinitialiserManche();
-    this._intervalId = setInterval(() => this.mettreAJour(), this.tickMs);
-}
-
-arreterJeu() {
-    if (!this.enCours) {
-        this._restaurerBoutons();
-        return;
-    }
-
-    clearInterval(this._intervalId);
-    this.enCours = false;
-
-    this._restaurerBoutons();
-}
-
-// Réactive les boutons et remet le style original
-_restaurerBoutons() {
-    const btnNouvellePartie = document.querySelector(".btn-new-game");
-    const btnConfig = document.querySelector(".btn-config");
-
-    if (btnNouvellePartie) {
-        btnNouvellePartie.disabled = false;
-        btnNouvellePartie.textContent = "Nouvelle Partie";
-        btnNouvellePartie.classList.remove("btn-disabled-game");
-    }
-
-    if (btnConfig) {
-        btnConfig.disabled = false;
-        btnConfig.classList.remove("btn-disabled-config");
-    }
-}
-
-    
     mettreAJour() {
-        // update directions (une par joueur par tick max)
         [this.joueur1, this.joueur2].forEach(j => j && j.vivant && j.mettreAJourDirection());
 
-        // avancer (saut prioritaire)
         [this.joueur1, this.joueur2].forEach(j => {
             if (!j || !j.vivant) return;
             if (j._demandeSaut) j.sauter();
             else j.deplacer();
         });
 
-        // vérifier fin de manche
         this._verifierFinManche();
-
-        // redraw
         this._dessiner();
     }
 
     _verifierFinManche() {
         const vivants = [this.joueur1, this.joueur2].filter(j => j && j.vivant);
-        if (vivants.length === 2) return; // continues
+        if (vivants.length === 2) return; // jeu continue
+
         this.arreterJeu();
 
         if (vivants.length === 1) {
             const gagnant = vivants[0];
-            if (this.tableauScores && typeof this.tableauScores.ajouterPoint === "function") {
-                this.tableauScores.ajouterPoint(gagnant.nom);
-            }
+            this.tableauScores.ajouterPoint(gagnant.nom);
             console.log("Manche terminée — gagnant :", gagnant.nom);
         } else {
             console.log("Manche terminée — égalité (aucun survivant)");
@@ -125,70 +116,56 @@ _restaurerBoutons() {
 
         const [d1, d2] = this._depart;
 
-        if (this.joueur1 && typeof this.joueur1.reinitialiser === "function") {
-            this.joueur1.reinitialiser({ x: d1.x, y: d1.y }, d1.dir);
-        }
-        if (this.joueur2 && typeof this.joueur2.reinitialiser === "function") {
-            this.joueur2.reinitialiser({ x: d2.x, y: d2.y }, d2.dir);
-        }
+        this.joueur1.reinitialiser({ x: d1.x, y: d1.y }, d1.dir);
+        this.joueur2.reinitialiser({ x: d2.x, y: d2.y }, d2.dir);
 
-        // Occuper les cases de départ
-        if (this.grille && typeof this.grille.occuper === "function") {
-            this.grille.occuper(d1.x, d1.y, this.joueur1.nom);
-            this.grille.occuper(d2.x, d2.y, this.joueur2.nom);
-        }
+        this.grille.occuper(d1.x, d1.y, this.joueur1.nom);
+        this.grille.occuper(d2.x, d2.y, this.joueur2.nom);
 
         this._dessiner();
     }
 
-   _dessiner() {
-    if (!this.canevas) return;
+    _dessiner() {
+        if (!this.canevas) return;
+        if (typeof this.canevas.effacer === "function") this.canevas.effacer();
 
-    if (typeof this.canevas.effacer === "function") {
-        this.canevas.effacer();
+        [this.joueur1, this.joueur2].forEach(j => {
+            if (!j) return;
+            const trace = j.trace || [];
+            trace.forEach(p => {
+                if (this.canevas.dessinerCase) this.canevas.dessinerCase(p.x, p.y, j.couleur);
+            });
+            const pos = j.position;
+            if (pos && this.canevas.dessinerTete) this.canevas.dessinerTete(pos, j.couleur, j.direction);
+        });
     }
 
-    [this.joueur1, this.joueur2].forEach(j => {
-        if (!j) return;
+    // Met à jour dynamiquement noms et scores dans le HTML
+    majScoreboard() {
+        if (!this.tableauScores) return;
 
-        const trace = j.trace || [];
-        if (Array.isArray(trace)) {
-            if (typeof this.canevas.dessinerTrace === "function") {
-                this.canevas.dessinerTrace(trace, j.couleur);
-            } else {
-                trace.forEach(p => {
-                    if (typeof this.canevas.dessinerCase === "function") {
-                        this.canevas.dessinerCase(p.x, p.y, j.couleur);
-                    }
-                });
-            }
-        }
+        const players = document.querySelectorAll(".scoreboard .player");
 
-        const pos = j.position;
-        if (!pos) return;
+        players.forEach(playerDiv => {
+            const circle = playerDiv.querySelector(".player-circle-outer");
+            if (!circle) return;
 
-        if (typeof this.canevas.dessinerTete === "function") {
-            this.canevas.dessinerTete(pos, j.couleur, j.direction);
-        } else {
-            if (typeof this.canevas.dessinerCase === "function") {
-                this.canevas.dessinerCase(pos.x, pos.y, j.couleur);
-            }
-        }
-    });
-}
+            const colorClass = circle.classList.contains("blue") ? "cyan" :
+                               circle.classList.contains("red") ? "red" : null;
+            if (!colorClass) return;
 
+            let joueur = colorClass === "cyan" ? this.joueur1 :
+                         colorClass === "red" ? this.joueur2 : null;
 
-    remplirTouchesConfig(j1, j2) {
-    const touchesJ1 = [j1.touches.gauche, j1.touches.droite, j1.touches.haut, j1.touches.bas, j1.touches.saut];
-    const touchesJ2 = [j2.touches.gauche, j2.touches.droite, j2.touches.haut, j2.touches.bas, j2.touches.saut];
+            if (!joueur) return;
 
-    document.querySelectorAll(".player-cyan .key-cyan")
-        .forEach((el, i) => el.textContent = touchesJ1[i]);
+            const h2 = playerDiv.querySelector("h2");
+            const scoreP = playerDiv.querySelector(".score");
 
-    document.querySelectorAll(".player-red .key-red")
-        .forEach((el, i) => el.textContent = touchesJ2[i]);
-}
-
+            if (h2) h2.textContent = joueur.nom;
+            if (scoreP) scoreP.textContent = this.tableauScores.obtenirScore(joueur.nom);
+        });
+    }
 
     terminerJeu() {
         this.arreterJeu();

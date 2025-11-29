@@ -4,16 +4,23 @@ class TableauScores {
     constructor(joueurs = []) {
         this.scores = {};
         joueurs.forEach(j => {
-            const nom = j && j.nom ? j.nom : j;
-            this.scores[nom] = 0;
+            if (j && j.nom) this.scores[j.nom] = 0;
+            else if (typeof j === "string") this.scores[j] = 0;
         });
     }
 
     ajouterPoint(nomJoueur) {
-        if (this.scores[nomJoueur] !== undefined) {
+        if (nomJoueur in this.scores) {
             this.scores[nomJoueur]++;
+        } else {
+            console.warn(`Le joueur "${nomJoueur}" n'existe pas dans le tableau de scores`);
         }
     }
+
+    obtenirScore(nomJoueur) {
+        return this.scores[nomJoueur] || 0;
+    }
+
     obtenirScore(nomJoueur) {
         return this.scores[nomJoueur] || 0;
     }
