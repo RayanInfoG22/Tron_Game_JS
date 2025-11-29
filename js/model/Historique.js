@@ -26,7 +26,7 @@ class Historique {
      * utilisé dans joueur.deplacer(direction) ou /et joueur.sauter(direction ) pour éviter les collisions avec les positions déjà occupées
      */
     contient(point) {
-        return this.Point.some(p => p.commpare(point));
+        return this.Point.some(p => p.compare(point));
     }
 
     //réinitialiser l'historique

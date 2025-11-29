@@ -65,7 +65,7 @@ class Joueur {
     sauter() {
         if (!this.vivant) return;
 
-        const pos1 = this.position.suivant(this.direction, 1);
+        const newPosition = this.position.suivant(this.direction, 1);
         if (this.grille.estlibre(newPosition.x, newPosition.y) &&
             !this.historique.contient(newPosition)) {
             this.position = newPosition;

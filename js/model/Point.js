@@ -38,7 +38,7 @@ class Point {
      *
      * 
      */
-    commpare(point) {
+    compare(point) {
         return this.x === point.x && this.y === point.y;
     }
  
