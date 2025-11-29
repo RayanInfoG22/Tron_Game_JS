@@ -252,11 +252,13 @@ body {
   width: 8rem;
   height: 0.0625rem;
   flex-shrink: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(255, 137, 4, 0.50) 50%, rgba(0, 0, 0, 0.00) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(255, 61, 61, 0.5) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
-
-
-
 
 
 
