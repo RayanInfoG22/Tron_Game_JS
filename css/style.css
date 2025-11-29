@@ -440,7 +440,8 @@ button:hover {
 .ui-dialog .ui-dialog-titlebar,
 .ui-widget-header {
   text-align: center;
-      background: rgba(0, 0, 0, 0.9) !important;
+  
+    background: rgba(0, 0, 0, 0.9) !important;
     border: none !important;
     color: var(--couleur-blanc) !important;
     text-shadow: var(--neon-cyan);
@@ -452,6 +453,50 @@ button:hover {
     border-radius: 1rem;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.2),
                 inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+/* Bouton Sauvegarder */
+.btns {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+#btn-save-controls {
+    color: var(--couleur-cyan);
+    border: 1px solid rgba(0, 184, 219, 0.5);
+    background: rgba(0, 184, 219, 0.1);
+    padding: 0.6rem 1.4rem;
+    font-family: var(--font-principale);
+    font-size: 1rem;
+    border-radius: 0.6rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-save-controls:hover {
+    box-shadow: 0 0 10px rgba(0,255,255,0.5), 0 0 20px rgba(0,255,255,0.3);
+    transform: scale(1.05);
+}
+
+/* Bouton Annuler */
+#btn-cancel-controls {
+    color: var(--couleur-orange);
+    border: 1px solid rgba(255, 137, 4, 0.5);
+    background: rgba(255, 137, 4, 0.1);
+    padding: 0.6rem 1.4rem;
+    font-family: var(--font-principale);
+    font-size: 1rem;
+    border-radius: 0.6rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btn-cancel-controls:hover {
+    box-shadow: 0 0 10px rgba(255,137,4,0.5), 0 0 20px rgba(255,137,4,0.3);
+    transform: scale(1.05);
 }
 
 
