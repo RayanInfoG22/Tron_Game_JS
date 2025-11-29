@@ -15,7 +15,7 @@ class ControleurJeu {
         this.controlesJ1 = new Controles(1);
         this.controlesJ2 = new Controles(2);
 
-  
+
         this.jeu.lierControles(this.controlesJ1, this.controlesJ2);
 
         this._initialiserBoutons();
@@ -24,7 +24,7 @@ class ControleurJeu {
     }
 
     _initialiserBoutons() {
-        
+
         const btnNouvellePartie = document.querySelector(".btn-new-game");
         btnNouvellePartie.addEventListener("click", () => {
             this.jeu.demarrerJeu();
@@ -64,7 +64,7 @@ class ControleurJeu {
         });
     }
 
-     _initialiserDialogConfig() {
+    _initialiserDialogConfig() {
         $("#dialog-config").dialog({
             autoOpen: false,
             width: 400,
@@ -136,6 +136,32 @@ class ControleurJeu {
         $("#btn-cancel-controls").on("click", () => {
             $("#dialog-config").dialog("close");
         });
+
+
+        // Réinitialiser les touches par défaut
+        $("#btn-reset-controls").on("click", () => {
+            const defautsJ1 = { gauche: 'Q', droite: 'D', haut: 'Z', bas: 'S', saut: 'A' };
+            const defautsJ2 = { gauche: 'O', droite: 'K', haut: ';', bas: 'M', saut: 'P' };
+
+       
+            this.controlesJ1.touchesDirection = { ...defautsJ1 };
+            this.controlesJ2.touchesDirection = { ...defautsJ2 };
+
+            $(".key-cyan").eq(0).text(defautsJ1.gauche);
+            $(".key-cyan").eq(1).text(defautsJ1.droite);
+            $(".key-cyan").eq(2).text(defautsJ1.haut);
+            $(".key-cyan").eq(3).text(defautsJ1.bas);
+            $(".key-cyan").eq(4).text(defautsJ1.saut);
+
+            $(".key-orange").eq(0).text(defautsJ2.gauche);
+            $(".key-orange").eq(1).text(defautsJ2.droite);
+            $(".key-orange").eq(2).text(defautsJ2.haut);
+            $(".key-orange").eq(3).text(defautsJ2.bas);
+            $(".key-orange").eq(4).text(defautsJ2.saut);
+
+            alert("Touches réinitialisées aux valeurs par défaut !");
+        });
+
     }
 }
 
