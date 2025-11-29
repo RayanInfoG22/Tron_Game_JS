@@ -36,8 +36,7 @@ class ControleurJeu {
         const btnNouvellePartie = document.querySelector(".btn-new-game");
         btnNouvellePartie.addEventListener("click", () => {
             this.jeu.demarrerJeu();
-            btnNouvellePartie.disabled = true;
-
+            
         });
 
         const btnConfig = document.querySelector(".btn-config");

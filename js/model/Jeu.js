@@ -35,36 +35,58 @@ class Jeu {
         this.tableauScores = tableauScores;
     }
 
-    demarrerJeu() {
-        if (this.enCours) return;
-        this.enCours = true;
-        const btnNouvellePartie = document.querySelector(".btn-new-game");
-        const btnConfig = document.querySelector(".btn-config");
-        if (btnNouvellePartie) btnNouvellePartie.disabled = true;
-        if (btnConfig) btnConfig.disabled = true;
+demarrerJeu() {
+    if (this.enCours) return;
+    this.enCours = true;
 
-        this.reinitialiserManche();
-        this._intervalId = setInterval(() => this.mettreAJour(), this.tickMs);
+    const btnNouvellePartie = document.querySelector(".btn-new-game");
+    const btnConfig = document.querySelector(".btn-config");
+
+    if (btnNouvellePartie) {
+        btnNouvellePartie.disabled = true;
+        btnNouvellePartie.textContent = "Partie en cours";
+        btnNouvellePartie.classList.add("btn-disabled-game");
     }
 
-    arreterJeu() {
-        if (!this.enCours) {
-            // même si jeu non en cours, s'assurer que boutons sont actifs
-            const btnNouvellePartie = document.querySelector(".btn-new-game");
-            const btnConfig = document.querySelector(".btn-config");
-            if (btnNouvellePartie) btnNouvellePartie.disabled = false;
-            if (btnConfig) btnConfig.disabled = false;
-            return;
-        }
-        clearInterval(this._intervalId);
-        this._intervalId = null;
-        this.enCours = false;
-        const btnNouvellePartie = document.querySelector(".btn-new-game");
-        const btnConfig = document.querySelector(".btn-config");
-        if (btnNouvellePartie) btnNouvellePartie.disabled = false;
-        if (btnConfig) btnConfig.disabled = false;
+    if (btnConfig) {
+        btnConfig.disabled = true;
+        btnConfig.classList.add("btn-disabled-config");
     }
 
+    this.reinitialiserManche();
+    this._intervalId = setInterval(() => this.mettreAJour(), this.tickMs);
+}
+
+arreterJeu() {
+    if (!this.enCours) {
+        this._restaurerBoutons();
+        return;
+    }
+
+    clearInterval(this._intervalId);
+    this.enCours = false;
+
+    this._restaurerBoutons();
+}
+
+// Réactive les boutons et remet le style original
+_restaurerBoutons() {
+    const btnNouvellePartie = document.querySelector(".btn-new-game");
+    const btnConfig = document.querySelector(".btn-config");
+
+    if (btnNouvellePartie) {
+        btnNouvellePartie.disabled = false;
+        btnNouvellePartie.textContent = "Nouvelle Partie";
+        btnNouvellePartie.classList.remove("btn-disabled-game");
+    }
+
+    if (btnConfig) {
+        btnConfig.disabled = false;
+        btnConfig.classList.remove("btn-disabled-config");
+    }
+}
+
+    
     mettreAJour() {
         // update directions (une par joueur par tick max)
         [this.joueur1, this.joueur2].forEach(j => j && j.vivant && j.mettreAJourDirection());

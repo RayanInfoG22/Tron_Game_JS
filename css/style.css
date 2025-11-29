@@ -315,6 +315,24 @@ button:hover {
 }
 
 
+.btn-disabled-game {
+    border-radius: 0.875rem;
+    opacity: 0.5;
+    background: linear-gradient(90deg, #364153 0%, #1E2939 100%);
+
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    pointer-events: none; 
+}
+
+.btn-disabled-config {
+    border-radius: 0.875rem;
+    border: 0.727px solid #4A5565;
+    opacity: 0.5;
+    pointer-events: none; }
+
+
 
 
 .controls-panel {
