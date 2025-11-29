@@ -7,7 +7,7 @@ const canvas = new Canevas(".canvas-container", 80, 59, 10);
 
 const jeu = new Jeu(canvas);
 
-const controleur = new ControleurJeu(jeu);
+new ControleurJeu(jeu);
 
 const scores = new TableauScores([jeu.joueur2, jeu.joueur1]);
 jeu.lierTableauScores(scores);

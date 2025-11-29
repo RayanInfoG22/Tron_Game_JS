@@ -5,6 +5,8 @@
 *Gère les boutons/Nouvelle Partie et Configuration des touches
 *Utilise jQuery UI pour la fenêtre de configuration des touches et sauvegarde les nouvelles touches dans le localStorage
  */
+/* global $ */
+
 
 import Controles from "../model/Controles.js";
 
@@ -99,6 +101,7 @@ class ControleurJeu {
                 .text(this.controlesJ2.touchesDirection[action]);
         });
     };
+    this.majAffichagePanel = majAffichagePanel;
 
     // edition des touches uniquement DANS le dialogue
     $("#dialog-config .key-cyan, #dialog-config .key-red").on("click", (event) => {
