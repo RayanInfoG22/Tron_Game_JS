@@ -52,18 +52,35 @@ class Joueur {
         this._appliquerPosition(np);
     }
 
-    sauter() {
-        if (!this.vivant) return;
-        const np = this.position.suivant(this.direction, 2);
-        if (np.x < 0 || np.x >= this.grille.colonnes || np.y < 0 || np.y >= this.grille.lignes) {
-            this.vivant = false;
-        } else if (this.grille.estlibre(np.x, np.y) && !this.historique.contient(np)) {
-            this._appliquerPosition(np);
-        } else {
-            this.vivant = false;
-        }
+   sauter() {
+    if (!this.vivant) return;
+
+    const caseInterm = this.position.suivant(this.direction, 1); // case sautée
+    const np = this.position.suivant(this.direction, 2);         // case d'arrivée
+
+    if (np.x < 0 || np.x >= this.grille.colonnes || np.y < 0 || np.y >= this.grille.lignes) {
+        this.vivant = false;
         this._demandeSaut = false;
+        return;
     }
+
+    if (this.grille.estlibre(np.x, np.y) && !this.historique.contient(np)) {
+
+        if (this.grille.estlibre(caseInterm.x, caseInterm.y)) {
+            this.grille.occuper(caseInterm.x, caseInterm.y, this.nom);
+            this.trace.push(new Point(caseInterm.x, caseInterm.y));
+            this.historique.ajouter(new Point(caseInterm.x, caseInterm.y));
+        }
+
+        this._appliquerPosition(np);
+
+    } else {
+        this.vivant = false;
+    }
+
+    this._demandeSaut = false;
+}
+
 
     _appliquerPosition(np) {
         this.position = new Point(np.x, np.y);
