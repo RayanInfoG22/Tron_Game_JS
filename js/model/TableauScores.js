@@ -21,10 +21,7 @@ class TableauScores {
         return this.scores[nomJoueur] || 0;
     }
 
-    obtenirScore(nomJoueur) {
-        return this.scores[nomJoueur] || 0;
-    }
-
+ 
 
     obtenirTousLesScores() {
         return Object.assign({}, this.scores);

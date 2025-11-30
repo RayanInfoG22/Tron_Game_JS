@@ -80,6 +80,11 @@ class Controles {
     this.directionActuelle = null;
     this.sauvegarder();
   }
+  resetDirections() {
+    this.directionSuivante = [];
+    this.directionActuelle = null;
+}
+
 }
 
 export default Controles;

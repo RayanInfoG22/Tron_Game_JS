@@ -30,11 +30,11 @@ class Jeu {
         this.majScoreboard();
     }
     lierControles(controlesJ1, controlesJ2) {
-    if (this.joueur1) this.joueur1.controles = controlesJ1;
-    if (this.joueur2) this.joueur2.controles = controlesJ2;
-}
+        if (this.joueur1) this.joueur1.controles = controlesJ1;
+        if (this.joueur2) this.joueur2.controles = controlesJ2;
+    }
 
-   
+
     lierTableauScores(tableauScores) {
         this.tableauScores = tableauScores;
     }
@@ -121,6 +121,9 @@ class Jeu {
 
         this.grille.occuper(d1.x, d1.y, this.joueur1.nom);
         this.grille.occuper(d2.x, d2.y, this.joueur2.nom);
+        if (this.controleur && typeof this.controleur.resetClavier === "function") {
+            this.controleur.resetClavier();
+        }
 
         this._dessiner();
     }
@@ -151,11 +154,11 @@ class Jeu {
             if (!circle) return;
 
             const colorClass = circle.classList.contains("blue") ? "cyan" :
-                               circle.classList.contains("red") ? "red" : null;
+                circle.classList.contains("red") ? "red" : null;
             if (!colorClass) return;
 
             let joueur = colorClass === "cyan" ? this.joueur1 :
-                         colorClass === "red" ? this.joueur2 : null;
+                colorClass === "red" ? this.joueur2 : null;
 
             if (!joueur) return;
 
