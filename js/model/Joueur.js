@@ -26,6 +26,17 @@ class Joueur {
         if (prochain && !this.estDirectionInverse(prochain)) {
             this.direction = prochain;
         }
+
+        const d=this.controles.prochaineDirection();
+        if(d){
+            if(d==="saut") {
+                this._demandeSaut=true;
+            }else{
+                this.direction=d;
+                this.controles.directionActuelle=d;
+            }
+        }
+
     }
 
     estDirectionInverse(nouvelleDir) {

@@ -55,6 +55,40 @@ class Controles {
 
     return true;
   }
+  /**
+ * Analyse une touche pressée et décide si elle doit être ajoutée
+ * dans la file directionSuivante.
+ */
+traiterTouche(key){
+    let action=null;
+    for (const [dir, touche] of Object.entries(this.touchesDirection)){
+        if (touche===key) {
+            action=dir; 
+            break;
+        }
+    }
+
+    if(!action) return;
+
+    if(action==="saut"){
+        this.ajouterDirection("saut");
+        return;
+    }
+
+    const opposées={
+        haut: "bas",
+        bas: "haut",
+        gauche: "droite",
+        droite: "gauche",
+    };
+
+    if(this.directionActuelle && opposées[this.directionActuelle]===action){
+      return; 
+    }
+
+    this.ajouterDirection(action);
+}
+
 
   obtenirTouche(direction) {
     return this.touchesDirection[direction];

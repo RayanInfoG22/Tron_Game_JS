@@ -28,6 +28,13 @@ class Jeu {
         // Tableau des scores
         this.tableauScores = new TableauScores([this.joueur1, this.joueur2]);
         this.majScoreboard();
+
+        window.addEventListener("keydown", (e)=>{
+            if (this.joueur1?.controles) this.joueur1.controles.traiterTouche(e.key);
+            if (this.joueur2?.controles) this.joueur2.controles.traiterTouche(e.key);
+        });
+
+
     }
     lierControles(controlesJ1, controlesJ2) {
         if (this.joueur1) this.joueur1.controles = controlesJ1;
