@@ -29,10 +29,10 @@ Il suffit d’ouvrir le fichier `index.html` dans un navigateur.
 ## 🖼️ Aperçu du jeu
 
 ### Gameplay
-![Gameplay](./assets/imgs/ImgGamePlay.png)
+![Gameplay](./assets/imgs/ImgScore.png)
 
 ### Écran de victoire
-![Victory](./assets/imgs/ImgScore.png)
+![Victory](./assets/imgs/ImgGamePlay.png)
 
 ## 👤 Auteurs
 Rayan Derguini
