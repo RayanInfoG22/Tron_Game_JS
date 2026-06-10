@@ -26,6 +26,14 @@ Il suffit d’ouvrir le fichier `index.html` dans un navigateur.
 
 ---
 
+## 🖼️ Aperçu du jeu
+
+### Gameplay
+![Gameplay](assets/images/game.png)
+
+### Écran de victoire
+![Victory](assets/images/victory.png)
+
 ## 👤 Auteurs
 Rayan Derguini
 Massiva Aliouat
